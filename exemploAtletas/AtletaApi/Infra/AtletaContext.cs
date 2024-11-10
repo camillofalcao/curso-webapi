@@ -10,7 +10,7 @@ public class AtletaContext : DbContext
 
     public AtletaContext()
     {
-        caminho = @$"{AppDomain.CurrentDomain.BaseDirectory}\atleta.db";
+        caminho = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "atleta.db");
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder options)
