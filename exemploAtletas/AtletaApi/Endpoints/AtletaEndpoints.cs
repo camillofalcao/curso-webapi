@@ -10,7 +10,7 @@ public static class AtletaEndpoints
 {
     public static void AdicionarAtletaEnpoints(this WebApplication app)
     {
-        var grupo = app.MapGroup("/atletas");
+        var grupo = app.MapGroup("/atletas").RequireAuthorization();
 
         grupo.MapGet("/", GetAsync);
         grupo.MapGet("/{id}", GetByIdAsync);
@@ -21,7 +21,7 @@ public static class AtletaEndpoints
 
     private static async Task<IResult> GetAsync(AtletaContext db)
     {
-        var objetos = await db.Atletas.ToListAsync();
+        var objetos = await db.Atletas.OrderBy(x => x.Nome).ToListAsync();
         return TypedResults.Ok(objetos.Select(x => new AtletaDTO(x)));
     }
 
